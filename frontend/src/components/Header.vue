@@ -1,27 +1,27 @@
 <script setup>
-import { useAppThemeStore } from '@/stores/app-theme';
+import useAppThemeStore from '@/stores/useAppThemeStore';
 import { watchEffect } from 'vue';
-const store = useAppThemeStore();
+const $theme = useAppThemeStore();
 
 watchEffect(() => {
-  document.querySelector('body').className = store.theme;
+  document.querySelector('body').className = $theme.theme;
 });
 </script>
 
 
 <template>
   <header>
-    <button @click="store.toggleTheme">
+    <button @click="$theme.toggleTheme">
       Toggle Theme
     </button>
     <nav>
-      <router-link to="/" :class="store.theme">
+      <router-link to="/" :class="$theme.theme">
         {{ 'Обо мне' }}
       </router-link> |
-      <router-link to="/projects" :class="store.theme">
+      <router-link to="/projects" :class="$theme.theme">
         {{ 'Мои проекты' }}
       </router-link> |
-      <router-link to="/contacts" :class="store.theme">
+      <router-link to="/contacts" :class="$theme.theme">
         {{ 'Контакты' }}
       </router-link>
     </nav>
@@ -54,10 +54,10 @@ nav a.light {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: var(--ative-text-dark-theme);
 }
 
 nav a.router-link-exact-active.light {
-  color: #ff0000;
+  color: var(--ative-text-light-theme);
 }
 </style>

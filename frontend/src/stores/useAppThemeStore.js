@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useAppThemeStore = defineStore('app-theme', () => {
+const useAppThemeStore = defineStore('app-theme', () => {
   const browserTheme = window.matchMedia ?
     (window.matchMedia('(prefers-color-scheme: dark)').matches ?
       'dark' : 'light') : 'light';
@@ -15,3 +15,5 @@ export const useAppThemeStore = defineStore('app-theme', () => {
     toggleTheme
   }
 });
+
+export default useAppThemeStore;
