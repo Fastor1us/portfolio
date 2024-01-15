@@ -1,28 +1,27 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import useAppThemeStore from '@/stores/useAppThemeStore';
 import useProjectsStore from '@/stores/useProjectsStore';
+import ImageSlider from '@/components/ImageSlider.vue';
+import LibraryList from '@/components/LibraryList.vue';
 
-const $theme = useAppThemeStore();
 const $projects = useProjectsStore();
 const { projects, isLoading, error } = storeToRefs($projects);
 </script>
 
-
 <template>
   <h1>Мои пет-проекты:</h1>
   <section v-if="projects">
-    <ul>
-      <li v-for="project in projects" :key="project.title">
-        <div class="header">
+    <ul class="ul">
+      <li v-for="project in projects" :key="project.title" class="li">
+        <div class="title">
           <h2>{{ project.title }}</h2>
           <p>{{ project.created }}</p>
         </div>
-        <ul class="libraries" :class="$theme.theme">
-          <li v-for="library in project.libraries" :key="library">
-            {{ library }}
-          </li>
-        </ul>
+
+        <LibraryList :libraries="project.libraries" />
+
+        <ImageSlider :project="project" />
+
         <p>{{ project.description }}</p>
       </li>
     </ul>
@@ -31,33 +30,21 @@ const { projects, isLoading, error } = storeToRefs($projects);
   <p v-if="error">{{ error }}</p>
 </template>
 
-
 <style scoped>
-.header {
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.libraries {
+.li {
   display: flex;
-  justify-content: flex-start;
-  gap: 5px;
-}
-
-.libraries li {
-  background-color: red;
-  padding: 3px 5px;
-  border-radius: 5px;
-}
-
-.libraries.dark li {
-  background-color: var(--ative-text-dark-theme);
-  color: black;
-}
-
-.libraries.light li {
-  background-color: var(--ative-text-light-theme);
-  color: white;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>

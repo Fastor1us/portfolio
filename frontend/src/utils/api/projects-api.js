@@ -2,5 +2,8 @@ import { useDataQuery } from '../useDataQuery';
 
 
 export const getAllProjects = () => {
-  return useDataQuery('project/get-all');
+  return useDataQuery('/projects');
 }
+
+
+// export const get

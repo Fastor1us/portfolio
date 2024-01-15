@@ -1,10 +1,9 @@
 import { useQuery } from 'vue-query';
+import URL from '@/server_data';
 
-const URL = 'http://localhost:8081';
-
-export const useDataQuery = (url) => {
+export const useDataQuery = (path) => {
   return useQuery('data', async () => {
-    const response = await fetch(`${URL}/${url}`);
+    const response = await fetch(`${URL}${path}`);
     if (!response.ok) {
       throw new Error('Ошибка получения данных');
     }

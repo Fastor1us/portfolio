@@ -11,7 +11,6 @@ watchEffect(() => {
 });
 </script>
 
-
 <template>
   <Header />
   <main>
@@ -20,11 +19,26 @@ watchEffect(() => {
   <Footer />
 </template>
 
-
 <style>
 :root {
-  --ative-text-dark-theme: #42b983;
-  --ative-text-light-theme: Crimson;
+  --active-text-dark-theme: #42b983;
+  --active-text-light-theme: Crimson;
+  --background-light-theme: rgb(230, 230, 230);
+  --background-dark-theme: rgb(36, 36, 36);
+  --max-main-width: 960px;
+  --transition-time: 0.5s;
+
+  @media (min-width: 412px) and (max-width: 767px) {
+    --max-main-width: 412px;
+  }
+
+  @media (min-width: 768px) and (max-width: 959px) {
+    --max-main-width: 768px;
+  }
+
+  @media (min-width: 960px) {
+    --max-main-width: 960px;
+  }
 }
 
 html {
@@ -38,16 +52,24 @@ body {
   padding: 0;
   width: 100%;
   box-sizing: border-box;
+  transition: all var(--transition-time) ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 body.dark {
-  background-color: rgb(36, 36, 36);
+  background-color: var(--background-dark-theme);
   color: white;
 }
 
 body.light {
-  background-color: white;
+  background-color: var(--background-light-theme);
   color: black;
+}
+
+main {
+  max-width: var(--max-main-width);
 }
 
 #app {
@@ -61,5 +83,15 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+p,
+a,
+li,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
 }
 </style>

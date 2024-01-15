@@ -1,5 +1,6 @@
 import express from 'express';
-import { projectRoutes } from './routes/projectRoutes.js';
+import { projectRoutes } from './routes/projectsRoutes.js';
+import { imagesRouter } from './routes/imagesRouter.js';
 const URL = 'http://localhost:8080';
 
 const app = express();
@@ -14,8 +15,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Routs
-app.use('/project', projectRoutes);
+app.use('/projects', projectRoutes);
+app.use('/images', imagesRouter);
 
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
