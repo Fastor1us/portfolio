@@ -1,14 +1,10 @@
-<script setup>
-
-</script>
-
+<script setup></script>
 
 <template>
   <!-- <footer>
     footer
-  </footer> -->
+  </footer>
+  <div></div> -->
 </template>
 
-
-<style scoped>
-</style>
+<style scoped></style>

@@ -33,6 +33,7 @@ const visibleImageIndex = ref(0);
       ></button>
     </div>
   </section>
+  <div></div>
 </template>
 
 <style scoped>
@@ -49,6 +50,8 @@ ul {
 img {
   max-width: 40%;
   border: 2px solid;
+  transition: border-color var(--transition-time) ease;
+  user-select: none;
 }
 
 img.dark {

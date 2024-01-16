@@ -1,11 +1,22 @@
 <script setup>
-import { watchEffect } from 'vue';
+import { onMounted, watchEffect } from 'vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import { getAllProjects } from '@/utils/api/projects-api';
+import useAppThemeStore from '@/stores/useAppThemeStore';
 import useProjectsStore from './stores/useProjectsStore';
 const { data, isLoading, error } = getAllProjects();
+const $theme = useAppThemeStore();
 const $projects = useProjectsStore();
+onMounted(() => {
+  setTimeout(() => {
+    document.body.classList.add('transition-enabled');
+  }, 0);
+});
+watchEffect(() => {
+  document.body.classList.add($theme.theme);
+  document.body.classList.remove($theme.theme === 'dark' ? 'light' : 'dark');
+});
 watchEffect(() => {
   $projects.setData({ data, isLoading, error });
 });
@@ -25,20 +36,9 @@ watchEffect(() => {
   --active-text-light-theme: Crimson;
   --background-light-theme: rgb(230, 230, 230);
   --background-dark-theme: rgb(36, 36, 36);
-  --max-main-width: 960px;
+  --app-padding: 20px;
+  --max-app-width: 1280px;
   --transition-time: 0.5s;
-
-  @media (min-width: 412px) and (max-width: 767px) {
-    --max-main-width: 412px;
-  }
-
-  @media (min-width: 768px) and (max-width: 959px) {
-    --max-main-width: 768px;
-  }
-
-  @media (min-width: 960px) {
-    --max-main-width: 960px;
-  }
 }
 
 html {
@@ -52,10 +52,16 @@ body {
   padding: 0;
   width: 100%;
   box-sizing: border-box;
-  transition: all var(--transition-time) ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* overflow-y: scroll;
+  margin-right: calc(-1 * (100vw - 100%)); */
+}
+
+body.transition-enabled {
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease;
 }
 
 body.dark {
@@ -69,14 +75,17 @@ body.light {
 }
 
 main {
-  max-width: var(--max-main-width);
+  width: 100%;
 }
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
+  box-sizing: border-box;
+  padding: 0 var(--app-padding);
+  max-width: var(--max-app-width);
+  width: 100%;
 }
 
 ul {

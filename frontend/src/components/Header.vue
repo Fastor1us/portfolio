@@ -21,6 +21,7 @@ const $theme = useAppThemeStore();
       </router-link>
     </nav>
   </header>
+  <div></div>
 </template>
 
 <style scoped>
@@ -28,15 +29,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: var(--max-main-width);
+  width: 100%;
   box-sizing: border-box;
-  margin: 20px 0 30px;
+  margin: 30px 0 40px;
 }
 
 nav a {
   font-weight: bold;
   color: white;
-  transition: all var(--transition-time) ease;
+  transition: color var(--transition-time) ease;
 }
 
 nav a.dark {

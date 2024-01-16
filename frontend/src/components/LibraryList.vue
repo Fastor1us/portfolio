@@ -12,34 +12,35 @@ defineProps({
 </script>
 
 <template>
-  <ul class="libraries" :class="$theme.theme">
+  <ul :class="$theme.theme">
     <li v-for="library in libraries" :key="library">
       {{ library }}
     </li>
   </ul>
+  <div></div>
 </template>
 
 <style scoped>
-.libraries {
+ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 5px;
 }
 
-.libraries li {
+ul li {
   background-color: red;
   padding: 3px 5px;
   border-radius: 5px;
   transition: all var(--transition-time) ease;
 }
 
-.libraries.dark li {
+ul.dark li {
   background-color: var(--active-text-dark-theme);
   color: black;
 }
 
-.libraries.light li {
+ul.light li {
   background-color: var(--active-text-light-theme);
   color: white;
 }
