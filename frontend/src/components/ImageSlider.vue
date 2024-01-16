@@ -7,6 +7,12 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  showModal: {
+    type: Boolean,
+  },
+  modalActive: {
+    type: Boolean,
+  },
 });
 const $theme = useAppThemeStore();
 const visibleImageIndex = ref(0);
@@ -20,11 +26,11 @@ const changeImage = (delta) => {
 
 <template>
   <section>
-    <ul style="display: inline-block">
+    <ul>
       <li v-for="(image, index) in project.images" :key="image">
         <div
           class="arrow arrow-left"
-          :class="{ disabled: index === 0 }"
+          :class="[{ disabled: index === 0 }, { modalActive }]"
           v-show="index === visibleImageIndex"
           @click="changeImage(-1)"
         >
@@ -32,7 +38,10 @@ const changeImage = (delta) => {
         </div>
         <div
           class="arrow arrow-right"
-          :class="{ disabled: index === project.images.length - 1 }"
+          :class="[
+            { disabled: index === project.images.length - 1 },
+            { modalActive },
+          ]"
           v-show="index === visibleImageIndex"
           @click="changeImage(1)"
         >
@@ -42,11 +51,12 @@ const changeImage = (delta) => {
           v-show="index === visibleImageIndex"
           :src="URL + '/images/' + project.title + '/' + image"
           alt="project.title"
-          :class="$theme.theme"
+          :class="[$theme.theme, { modalActive }]"
+          @click="showModal !== undefined && $emit('update:showModal', true)"
         />
       </li>
     </ul>
-    <div class="buttons">
+    <div class="buttons" :class="{ modalActive }">
       <button
         v-for="(image, index) in project.images"
         :key="image"
@@ -81,6 +91,17 @@ li {
   user-select: none;
   top: 50%;
   transform: translateY(-50%);
+  transition: opacity var(--transition-time) ease;
+}
+
+.arrow.modalActive {
+  width: 8%;
+  font-size: 60px;
+  top: 0;
+  transform: translate(0);
+  justify-content: center;
+  opacity: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .arrow-left {
@@ -91,7 +112,31 @@ li {
   right: 10px;
 }
 
+.arrow-left.modalActive {
+  left: 0;
+}
+
+.arrow-right.modalActive {
+  right: 0;
+}
+
 .arrow.disabled {
+  opacity: 0.7;
+}
+
+.arrow.modalActive.disabled {
+  opacity: 0;
+}
+
+li:hover .arrow.modalActive.disabled {
+  opacity: 0;
+}
+
+li:hover .arrow.modalActive {
+  opacity: 0.5;
+}
+
+img:hover .arrow.modalActive {
   opacity: 0.5;
 }
 
@@ -100,10 +145,20 @@ ul {
 }
 
 img {
+  box-sizing: border-box;
   max-width: 80%;
   border: 2px solid;
   transition: border-color var(--transition-time) ease;
   user-select: none;
+  max-height: 235px;
+}
+
+img.modalActive {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  /* transform: scale(0.9); */
 }
 
 img.dark {
@@ -146,5 +201,9 @@ button.light.active {
   display: flex;
   gap: 4px;
   margin-top: 4px;
+}
+
+.buttons.modalActive {
+  padding-bottom: 5px;
 }
 </style>

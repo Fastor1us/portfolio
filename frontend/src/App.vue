@@ -37,7 +37,8 @@ watchEffect(() => {
   --background-light-theme: rgb(230, 230, 230);
   --background-dark-theme: rgb(36, 36, 36);
   --app-padding: 20px;
-  --max-app-width: 1280px;
+  --max-app-width: 1200px;
+  --max-main-width: 1080px;
   --transition-time: 0.5s;
 }
 
@@ -75,6 +76,7 @@ body.light {
 }
 
 main {
+  max-width: var(--max-main-width);
   width: 100%;
 }
 
@@ -86,6 +88,9 @@ main {
   padding: 0 var(--app-padding);
   max-width: var(--max-app-width);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 ul {

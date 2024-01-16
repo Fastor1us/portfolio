@@ -4,10 +4,21 @@ import useAppThemeStore from '@/stores/useAppThemeStore';
 import useProjectsStore from '@/stores/useProjectsStore';
 import ImageSlider from '@/components/ImageSlider.vue';
 import LibraryList from '@/components/LibraryList.vue';
+import Modal from '@/components/Modal.vue';
+import { ref, watchEffect } from 'vue';
 
 const $theme = useAppThemeStore();
 const $projects = useProjectsStore();
 const { projects, isLoading, error } = storeToRefs($projects);
+
+const dialogVisible = ref({});
+
+watchEffect(() => {
+  projects.value &&
+    projects.value.forEach((project) => {
+      dialogVisible.value[project.title] = false;
+    });
+});
 </script>
 
 <template>
@@ -29,9 +40,11 @@ const { projects, isLoading, error } = storeToRefs($projects);
         </div>
 
         <div class="images">
-          <ImageSlider :project="project" />
+          <ImageSlider
+            :project="project"
+            v-model:showModal="dialogVisible[project.title]"
+          />
         </div>
-
         <div class="descriptions">
           <p v-for="description in project.descriptions" :key="description">
             {{ description }}
@@ -40,6 +53,11 @@ const { projects, isLoading, error } = storeToRefs($projects);
       </li>
     </ul>
   </section>
+  <div v-for="project in projects" :key="project.title">
+    <Modal v-model:show="dialogVisible[project.title]">
+      <ImageSlider :project="project" :modalActive="true" />
+    </Modal>
+  </div>
   <p v-if="isLoading">Загрузка...</p>
   <p v-if="error">{{ error }}</p>
 </template>
@@ -69,7 +87,7 @@ li {
   padding-bottom: 30px;
   border-bottom: 2px solid;
   transition: border-color var(--transition-time) ease;
-  @media (min-width: 601px) {
+  @media (min-width: 768px) {
     display: grid;
     grid-template-columns: 4fr 5fr;
     grid-template-rows: min-content minmax(min-content, max-content) 1fr;
