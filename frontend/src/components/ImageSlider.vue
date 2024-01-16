@@ -2,7 +2,7 @@
 import URL from '@/server_data';
 import { ref } from 'vue';
 import useAppThemeStore from '@/stores/useAppThemeStore';
-defineProps({
+const props = defineProps({
   project: {
     type: Object,
     required: true,
@@ -10,12 +10,34 @@ defineProps({
 });
 const $theme = useAppThemeStore();
 const visibleImageIndex = ref(0);
+const changeImage = (delta) => {
+  const newIndex = visibleImageIndex.value + delta;
+  if (newIndex >= 0 && newIndex < props.project.images.length) {
+    visibleImageIndex.value = newIndex;
+  }
+};
 </script>
 
 <template>
   <section>
     <ul style="display: inline-block">
       <li v-for="(image, index) in project.images" :key="image">
+        <div
+          class="arrow arrow-left"
+          :class="{ disabled: index === 0 }"
+          v-show="index === visibleImageIndex"
+          @click="changeImage(-1)"
+        >
+          &#8249;
+        </div>
+        <div
+          class="arrow arrow-right"
+          :class="{ disabled: index === project.images.length - 1 }"
+          v-show="index === visibleImageIndex"
+          @click="changeImage(1)"
+        >
+          &#8250;
+        </div>
         <img
           v-show="index === visibleImageIndex"
           :src="URL + '/images/' + project.title + '/' + image"
@@ -43,12 +65,42 @@ section {
   align-items: center;
 }
 
+li {
+  position: relative;
+}
+
+.arrow {
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 40px;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-left {
+  left: 10px;
+}
+
+.arrow-right {
+  right: 10px;
+}
+
+.arrow.disabled {
+  opacity: 0.5;
+}
+
 ul {
   text-align: center;
 }
 
 img {
-  max-width: 40%;
+  max-width: 80%;
   border: 2px solid;
   transition: border-color var(--transition-time) ease;
   user-select: none;
@@ -63,8 +115,8 @@ img.light {
 }
 
 button {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   border: 2px solid;
   outline: none;
@@ -92,6 +144,7 @@ button.light.active {
 
 .buttons {
   display: flex;
-  gap: 3px;
+  gap: 4px;
+  margin-top: 4px;
 }
 </style>

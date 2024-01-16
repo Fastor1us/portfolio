@@ -24,11 +24,19 @@ const { projects, isLoading, error } = storeToRefs($projects);
           <p>{{ project.created }}</p>
         </div>
 
-        <LibraryList :libraries="project.libraries" />
+        <div class="libraries">
+          <LibraryList :libraries="project.libraries" />
+        </div>
 
-        <ImageSlider :project="project" />
+        <div class="images">
+          <ImageSlider :project="project" />
+        </div>
 
-        <p>{{ project.description }}</p>
+        <div class="descriptions">
+          <p v-for="description in project.descriptions" :key="description">
+            {{ description }}
+          </p>
+        </div>
       </li>
     </ul>
   </section>
@@ -51,6 +59,7 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-area: title;
 }
 
 li {
@@ -60,6 +69,15 @@ li {
   padding-bottom: 30px;
   border-bottom: 2px solid;
   transition: border-color var(--transition-time) ease;
+  @media (min-width: 601px) {
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    grid-template-rows: min-content minmax(min-content, max-content) 1fr;
+    grid-template-areas:
+      'title title'
+      'images libraries'
+      'images description';
+  }
 }
 
 li.light {
@@ -72,5 +90,35 @@ li.dark {
 
 li:last-child {
   border-bottom: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.descriptions {
+  grid-area: description;
+}
+
+p {
+  text-indent: 12px;
+  margin-bottom: 5px;
+}
+
+p:last-of-type {
+  margin-bottom: 0;
+}
+
+.libraries {
+  grid-area: libraries;
+}
+
+.images {
+  grid-area: images;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

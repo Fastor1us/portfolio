@@ -99,7 +99,8 @@ a,
 li,
 h1,
 h2,
-h3 {
+h3,
+button {
   margin: 0;
   padding: 0;
 }

@@ -10,9 +10,13 @@ export const projects = [
     libraries: [
       'React', 'RTK Query', 'Express', 'PostgreSQL', 'Webpack'
     ],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
-    Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
-    corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`
+    descriptions: [
+      `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
+      Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
+      corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`,
+      `Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur`,
+      `Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur`
+    ]
   },
   {
     title: 'portfolio',
@@ -24,8 +28,10 @@ export const projects = [
     libraries: [
       'Vue3', 'Pinia', 'Express', 'Webpack'
     ],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
-    Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
-     corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`
+    descriptions: [
+      `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
+      Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
+      corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`
+    ]
   }
 ]
