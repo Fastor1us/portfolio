@@ -8,12 +8,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-router.get('/:title/:image', async (req, res) => {
-  const { title, image } = req.params;
+router.get('/:folder/:image', async (req, res) => {
+  const { folder, image } = req.params;
 
   try {
     const imagePath = path.join(__dirname,
-      `../public/uploads/${title}/${image}`);
+      `../public/uploads/images/${folder}/${image}`);
     res.sendFile(imagePath);
   } catch (error) {
     console.error('Ошибка получения картинки:', error);

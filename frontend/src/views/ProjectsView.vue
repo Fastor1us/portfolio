@@ -1,15 +1,13 @@
 <script setup>
-import { storeToRefs } from 'pinia';
 import useAppThemeStore from '@/stores/useAppThemeStore';
-import useProjectsStore from '@/stores/useProjectsStore';
 import ImageSlider from '@/components/ImageSlider.vue';
 import LibraryList from '@/components/LibraryList.vue';
 import Modal from '@/components/Modal.vue';
+import { getAllProjects } from '@/utils/api/projects-api';
 import { ref, watchEffect } from 'vue';
+const { data: projects, isLoading, error } = getAllProjects();
 
 const $theme = useAppThemeStore();
-const $projects = useProjectsStore();
-const { projects, isLoading, error } = storeToRefs($projects);
 
 const dialogVisible = ref({});
 
@@ -41,7 +39,8 @@ watchEffect(() => {
 
         <div class="images">
           <ImageSlider
-            :project="project"
+            :data="project.images"
+            :path="project.title"
             v-model:showModal="dialogVisible[project.title]"
           />
         </div>
@@ -55,7 +54,11 @@ watchEffect(() => {
   </section>
   <div v-for="project in projects" :key="project.title">
     <Modal v-model:show="dialogVisible[project.title]">
-      <ImageSlider :project="project" :modalActive="true" />
+      <ImageSlider
+        :data="project.images"
+        :path="project.title"
+        :modalActive="true"
+      />
     </Modal>
   </div>
   <p v-if="isLoading">Загрузка...</p>
@@ -89,7 +92,7 @@ li {
   transition: border-color var(--transition-time) ease;
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: 4fr 5fr;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: min-content minmax(min-content, max-content) 1fr;
     grid-template-areas:
       'title title'

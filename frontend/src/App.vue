@@ -2,12 +2,14 @@
 import { onMounted, watchEffect } from 'vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-import { getAllProjects } from '@/utils/api/projects-api';
+// import { getAllProjects } from '@/utils/api/projects-api';
+// import useProjectsStore from './stores/useProjectsStore';
 import useAppThemeStore from '@/stores/useAppThemeStore';
-import useProjectsStore from './stores/useProjectsStore';
-const { data, isLoading, error } = getAllProjects();
+
+// const { data, isLoading, error } = getAllProjects();
+// const $projects = useProjectsStore();
 const $theme = useAppThemeStore();
-const $projects = useProjectsStore();
+
 onMounted(() => {
   setTimeout(() => {
     document.body.classList.add('transition-enabled');
@@ -17,9 +19,9 @@ watchEffect(() => {
   document.body.classList.add($theme.theme);
   document.body.classList.remove($theme.theme === 'dark' ? 'light' : 'dark');
 });
-watchEffect(() => {
-  $projects.setData({ data, isLoading, error });
-});
+// watchEffect(() => {
+//   $projects.setData({ data, isLoading, error });
+// });
 </script>
 
 <template>

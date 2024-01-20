@@ -28,6 +28,7 @@ onMounted(() => {
       <slot></slot>
     </div>
   </section>
+  <div></div>
 </template>
 
 <style scoped>
@@ -45,6 +46,18 @@ section {
   margin: auto;
   border-radius: 12px;
   min-height: 50px;
-  min-width: 300px;
+  /* min-width: 300px; */
+  max-width: 100%;
+  @media (max-width: 724px) {
+    width: 100%;
+  }
+
+  @media (min-width: 725px) and (max-width: 1279px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 1200px;
+  }
 }
 </style>
