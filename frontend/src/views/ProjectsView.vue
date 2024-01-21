@@ -1,8 +1,8 @@
 <script setup>
 import useAppThemeStore from '@/stores/useAppThemeStore';
 import ImageSlider from '@/components/ImageSlider.vue';
+import ImageSliderWithModal from '@/hocs/ImageSliderWithModal.vue';
 import LibraryList from '@/components/LibraryList.vue';
-import Modal from '@/components/Modal.vue';
 import { getAllProjects } from '@/utils/api/projects-api';
 import { ref, watchEffect } from 'vue';
 const { data: projects, isLoading, error } = getAllProjects();
@@ -20,10 +20,11 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Мои пет-проекты:</h1>
+  <h1 class="h1">Мои пет-проекты:</h1>
   <section v-if="projects">
-    <ul>
+    <ul class="ul">
       <li
+        class="li"
         v-for="project in projects"
         :key="project.title"
         :class="$theme.theme"
@@ -33,17 +34,14 @@ watchEffect(() => {
           <p>{{ project.created }}</p>
         </div>
 
-        <div class="libraries">
-          <LibraryList :libraries="project.libraries" />
-        </div>
+        <ImageSliderWithModal
+          :data="project.images"
+          :path="project.title"
+          class="images"
+        />
 
-        <div class="images">
-          <ImageSlider
-            :data="project.images"
-            :path="project.title"
-            v-model:showModal="dialogVisible[project.title]"
-          />
-        </div>
+        <LibraryList :libraries="project.libraries" class="libraries" />
+
         <div class="descriptions">
           <p v-for="description in project.descriptions" :key="description">
             {{ description }}
@@ -52,25 +50,16 @@ watchEffect(() => {
       </li>
     </ul>
   </section>
-  <div v-for="project in projects" :key="project.title">
-    <Modal v-model:show="dialogVisible[project.title]">
-      <ImageSlider
-        :data="project.images"
-        :path="project.title"
-        :modalActive="true"
-      />
-    </Modal>
-  </div>
   <p v-if="isLoading">Загрузка...</p>
   <p v-if="error">{{ error }}</p>
 </template>
 
 <style scoped>
-h1 {
+.h1 {
   margin-bottom: 30px;
 }
 
-ul {
+.ul {
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -83,7 +72,7 @@ ul {
   grid-area: title;
 }
 
-li {
+.li {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -93,23 +82,26 @@ li {
   @media (min-width: 768px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: min-content minmax(min-content, max-content) 1fr;
+    grid-template-rows: min-content min-content 1fr;
     grid-template-areas:
       'title title'
       'images libraries'
       'images description';
+    /* height: 250px; */
+    /* align-content: start;
+    grid-auto-rows: min-content; */
   }
 }
 
-li.light {
+.li.light {
   border-color: var(--active-text-light-theme);
 }
 
-li.dark {
+.li.dark {
   border-color: var(--active-text-dark-theme);
 }
 
-li:last-child {
+.li:last-child {
   border-bottom: none;
 }
 
@@ -138,8 +130,17 @@ p:last-of-type {
 
 .images {
   grid-area: images;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  /* height: 100%; */
+  /* height: 250px; */
+  height: 250px;
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    height: 280px;
+  }
+  @media (min-width: 1280px) {
+    height: 300px;
+  }
 }
 </style>

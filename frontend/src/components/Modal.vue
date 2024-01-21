@@ -13,9 +13,7 @@ onMounted(() => {
       emit('update:show', false);
     }
   };
-
   document.addEventListener('keydown', escClickHandler);
-
   onUnmounted(() => {
     document.removeEventListener('keydown', escClickHandler);
   });
@@ -23,16 +21,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <section v-if="show" @click="$emit('update:show', false)">
+  <section class="ModalVue" v-if="show" @click="$emit('update:show', false)">
     <div v-on:click.stop class="content">
       <slot></slot>
     </div>
   </section>
-  <div></div>
 </template>
 
 <style scoped>
-section {
+.ModalVue {
   top: 0;
   bottom: 0;
   right: 0;
@@ -40,6 +37,7 @@ section {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   display: flex;
+  z-index: 1000;
 }
 
 .content {
@@ -47,17 +45,18 @@ section {
   border-radius: 12px;
   min-height: 50px;
   /* min-width: 300px; */
-  max-width: 100%;
+  /* max-width: 100%; */
+
   @media (max-width: 724px) {
-    width: 100%;
+    max-width: 100%;
   }
 
   @media (min-width: 725px) and (max-width: 1279px) {
-    width: 90%;
+    max-width: 90%;
   }
 
   @media (min-width: 1280px) {
-    width: 1200px;
+    max-width: 1200px;
   }
 }
 </style>

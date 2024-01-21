@@ -1,20 +1,22 @@
 <script setup>
 import useAppThemeStore from '@/stores/useAppThemeStore';
-
 const $theme = useAppThemeStore();
 </script>
 
 <template>
-  <button @click="$theme.toggleTheme" :class="$theme.theme">
+  <button
+    @click="$theme.toggleTheme"
+    :class="$theme.theme"
+    class="ThemeTogglerVue"
+  >
     <div class="icon" :class="'icon-' + $theme.theme">
       {{ $theme.theme === 'dark' ? '🌙' : '☀️' }}
     </div>
   </button>
-  <div></div>
 </template>
 
 <style scoped>
-button {
+.ThemeTogglerVue {
   border: 2px solid;
   border-radius: 30px;
   padding: 0;
@@ -29,12 +31,12 @@ button {
   transition: all var(--transition-time) ease;
 }
 
-button.dark {
+.ThemeTogglerVue.dark {
   border-color: var(--active-text-dark-theme);
   background-color: #a8ffd8;
 }
 
-button.light {
+.ThemeTogglerVue.light {
   border-color: var(--active-text-light-theme);
   background-color: LightCoral;
 }

@@ -11,28 +11,42 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  showModal: {
-    type: Boolean,
+  openModal: {
+    type: Function,
+    required: false,
   },
   modalActive: {
     type: Boolean,
+    required: false,
+  },
+  imageIndex: {
+    type: Number,
+    required: false,
   },
 });
 const $theme = useAppThemeStore();
-const visibleImageIndex = ref(0);
+const visibleImageIndex = ref(props.imageIndex || 0);
 const isArrowActive = ref(false);
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const changeImage = (delta) => {
   const newIndex = visibleImageIndex.value + delta;
   if (newIndex >= 0 && newIndex < props.data.length) {
     visibleImageIndex.value = newIndex;
   }
 };
+// const swapImage = (index, length) => {
+//   if (index < length) {
+//     visibleImageIndex.value++;
+//   } else {
+//     visibleImageIndex.value = 0;
+//   }
+// };
 </script>
 
 <template>
-  <section>
-    <ul :class="[$theme.theme, { modalActive }]">
-      <li v-for="(image, index) in data" :key="image">
+  <section class="ImageSliderVue" :class="{ modalActive }">
+    <ul class="ul">
+      <li v-for="(image, index) in data" :key="image" class="li">
         <div
           class="arrow arrow-left"
           :class="[
@@ -46,7 +60,7 @@ const changeImage = (delta) => {
           @mousedown="isArrowActive = true"
           @mouseup="isArrowActive = false"
         >
-          &#8249;
+          <span class="arrow-span"> &#8249; </span>
         </div>
         <div
           class="arrow arrow-right"
@@ -61,83 +75,119 @@ const changeImage = (delta) => {
           @mousedown="isArrowActive = true"
           @mouseup="isArrowActive = false"
         >
-          &#8250;
+          <span class="arrow-span"> &#8250; </span>
         </div>
         <img
           v-show="index === visibleImageIndex"
-          :src="URL + '/images/' + props.path + '/' + image"
-          alt="image.substring(0, image.indexOf('.'))"
-          :class="[$theme.theme, { modalActive }]"
-          @click="showModal !== undefined && $emit('update:showModal', true)"
+          :src="URL + '/images/' + path + '/' + image"
+          :alt="image.substring(0, image.indexOf('.'))"
+          @click="openModal(index)"
         />
       </li>
     </ul>
     <div class="buttons" :class="{ modalActive }">
       <button
+        v-show="!modalActive || !isMobile"
+        class="button"
         v-for="(image, index) in data"
         :key="image"
         @click="visibleImageIndex = index"
         :class="[$theme.theme, { active: index === visibleImageIndex }]"
       ></button>
     </div>
+    <slot></slot>
   </section>
-  <div></div>
 </template>
 
 <style scoped>
-section {
+.ImageSliderVue {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  gap: 5px;
   align-items: center;
-  width: 100%;
+  justify-content: flex-start;
+  position: relative;
+  max-width: 100%;
 }
 
-ul {
-  text-align: center;
-  border: 2px solid;
-  max-width: 80%;
-  width: 100%;
-  min-height: 285px;
-  max-height: 285px;
-  height: 100%;
+.ImageSliderVue.modalActive {
+  @media (max-width: 724px) {
+    max-width: 600px;
+  }
+
+  @media (min-width: 725px) and (max-width: 1279px) {
+    max-width: 700px;
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 800px;
+  }
+}
+
+.ul {
   display: flex;
-  flex-direction: column;
+  height: 92%;
+  max-width: 100%;
+}
+
+.li {
+  max-height: 100%;
+  max-width: 100%;
+  line-height: 0;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-ul.modalActive {
+img {
   max-width: 100%;
-  /* тут добавить width в зависимости от ширины экрана */
-  /* если экран не широкий, то 100% */
-  width: 100%;
-  /* если широкий, то задать ограничение в пикселях */
-
-  /* min-height: 600px;
-  max-height: 600px;
-  height: 100%; */
+  max-height: 100%;
+  user-select: none;
+  cursor: pointer;
 }
 
-ul.dark {
+.buttons {
+  display: flex;
+  gap: 2px;
+  position: absolute;
+  bottom: 0;
+}
+
+.buttons.modalActive {
+  bottom: -18px;
+}
+
+.button {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid;
+  outline: none;
+  transition: all var(--transition-time) ease;
+  cursor: pointer;
+}
+
+.button.dark {
   border-color: var(--active-text-dark-theme);
+  background-color: white;
 }
 
-ul.light {
+.button.light {
   border-color: var(--active-text-light-theme);
+  background-color: var(--background-light-theme);
 }
 
-li {
-  position: relative;
-  line-height: 0;
-  /* max-height: 285px; */
-  height: 100%;
-  width: 100%;
-  /* overflow: hidden; */
+.button.dark.active {
+  background-color: var(--active-text-dark-theme);
+}
+
+.button.light.active {
+  background-color: var(--active-text-light-theme);
 }
 
 .arrow {
-  padding: 5px;
+  /* border: 1px solid red; */
+  padding: 0 15px;
   box-sizing: border-box;
   font-size: 40px;
   position: absolute;
@@ -148,22 +198,27 @@ li {
   user-select: none;
   top: 50%;
   transform: translateY(-50%);
-  /* transition: opacity var(--transition-time) ease; */
-  @media (min-width: 768px) {
-    padding: 15px;
-  }
+  transition: color var(--transition-time) ease;
 }
 
-.arrow:not(.disabled):not(.modalActive):not(.active):hover {
+.arrow.dark {
+  color: white;
+}
+
+.arrow.light {
+  color: var(--active-text-light-theme);
+}
+
+.arrow:not(.disabled):not(.modalActive):not(.active):hover .arrow-span {
   transform: translateY(-50%) scale(1.3);
 }
 
-.arrow.modalActive:not(.disabled):not(.active):hover {
+.arrow.modalActive:not(.disabled):not(.active):hover .arrow-span {
   transform: scale(1.3);
 }
 
 .arrow.modalActive {
-  width: 8%;
+  width: 50%;
   font-size: 60px;
   top: 0;
   transform: translate(0);
@@ -180,24 +235,10 @@ li {
 }
 
 .arrow-left {
-  left: 10px;
-  @media (min-width: 475px) {
-    left: -30px;
-  }
-}
-
-.arrow-right {
-  right: 10px;
-  @media (min-width: 475px) {
-    right: -30px;
-  }
-}
-
-.arrow-left.modalActive {
   left: 0;
 }
 
-.arrow-right.modalActive {
+.arrow-right {
   right: 0;
 }
 
@@ -210,67 +251,8 @@ li {
   cursor: default;
 }
 
-li:hover .arrow:not(.disabled).modalActive {
+.arrow:not(.disabled).modalActive:hover {
   opacity: 1;
-}
-
-img {
-  /* box-sizing: border-box; */
-  object-fit: scale-down;
-  /* border: 2px solid; */
-  transition: border-color var(--transition-time) ease;
-  user-select: none;
-  max-width: 100%;
-  max-height: 285px;
-  /* max-height: 235px;
-  @media (min-width: 768px) {
-    max-height: 300px;
-    max-width: 100%;
-  } */
-}
-
-img.modalActive {
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: auto;
-}
-
-button {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid;
-  outline: none;
-  transition: all var(--transition-time) ease;
-  cursor: pointer;
-}
-
-button.dark {
-  border-color: var(--active-text-dark-theme);
-  background-color: white;
-}
-
-button.light {
-  border-color: var(--active-text-light-theme);
-  background-color: var(--background-light-theme);
-}
-
-button.dark.active {
-  background-color: var(--active-text-dark-theme);
-}
-
-button.light.active {
-  background-color: var(--active-text-light-theme);
-}
-
-.buttons {
-  display: flex;
-  gap: 4px;
-  margin-top: 4px;
-}
-
-.buttons.modalActive {
-  padding-bottom: 5px;
+  background-color: rgb(255, 255, 255, 0.01);
 }
 </style>

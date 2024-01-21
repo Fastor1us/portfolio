@@ -2,12 +2,8 @@
 import { onMounted, watchEffect } from 'vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-// import { getAllProjects } from '@/utils/api/projects-api';
-// import useProjectsStore from './stores/useProjectsStore';
 import useAppThemeStore from '@/stores/useAppThemeStore';
 
-// const { data, isLoading, error } = getAllProjects();
-// const $projects = useProjectsStore();
 const $theme = useAppThemeStore();
 
 onMounted(() => {
@@ -19,9 +15,6 @@ watchEffect(() => {
   document.body.classList.add($theme.theme);
   document.body.classList.remove($theme.theme === 'dark' ? 'light' : 'dark');
 });
-// watchEffect(() => {
-//   $projects.setData({ data, isLoading, error });
-// });
 </script>
 
 <template>
@@ -58,8 +51,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* overflow-y: scroll;
-  margin-right: calc(-1 * (100vw - 100%)); */
 }
 
 body.transition-enabled {

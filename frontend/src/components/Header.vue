@@ -7,7 +7,7 @@ const $theme = useAppThemeStore();
 <template>
   <header>
     <ThemeToggler />
-    <nav>
+    <nav class="nav">
       <router-link to="/" :class="$theme.theme">
         {{ 'Обо мне' }}
       </router-link>
@@ -21,7 +21,6 @@ const $theme = useAppThemeStore();
       </router-link>
     </nav>
   </header>
-  <div></div>
 </template>
 
 <style scoped>
@@ -34,25 +33,25 @@ header {
   margin: 30px 0 40px;
 }
 
-nav a {
+.nav a {
   font-weight: bold;
   color: white;
   transition: color var(--transition-time) ease;
 }
 
-nav a.dark {
+.nav a.dark {
   color: white;
 }
 
-nav a.light {
+.nav a.light {
   color: black;
 }
 
-nav a.router-link-exact-active {
+.nav a.router-link-exact-active {
   color: var(--active-text-dark-theme);
 }
 
-nav a.router-link-exact-active.light {
+.nav a.router-link-exact-active.light {
   color: var(--active-text-light-theme);
 }
 </style>
