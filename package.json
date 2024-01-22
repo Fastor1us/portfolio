@@ -1,7 +1,15 @@
 {
   "title": "portfolio",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "pet-project",
   "author": "Kiryushin Oleg <fewgwer3@ya.ru>",
-  "license": "All Rights Reserved"
+  "license": "All Rights Reserved",
+  "scripts": {
+    "serve": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\"",
+    "serve:frontend": "npm --prefix frontend run serve",
+    "serve:backend": "npm --prefix backend run serve"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

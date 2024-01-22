@@ -34,13 +34,13 @@ const changeImage = (delta) => {
     visibleImageIndex.value = newIndex;
   }
 };
-// const swapImage = (index, length) => {
-//   if (index < length) {
-//     visibleImageIndex.value++;
-//   } else {
-//     visibleImageIndex.value = 0;
-//   }
-// };
+const swapImage = (index, length) => {
+  if (index < length) {
+    visibleImageIndex.value++;
+  } else {
+    visibleImageIndex.value = 0;
+  }
+};
 </script>
 
 <template>
@@ -81,7 +81,9 @@ const changeImage = (delta) => {
           v-show="index === visibleImageIndex"
           :src="URL + '/images/' + path + '/' + image"
           :alt="image.substring(0, image.indexOf('.'))"
-          @click="openModal(index)"
+          @click="
+            openModal ? openModal(index) : swapImage(index, data.length - 1)
+          "
         />
       </li>
     </ul>

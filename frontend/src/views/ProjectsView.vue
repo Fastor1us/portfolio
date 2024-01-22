@@ -1,6 +1,5 @@
 <script setup>
 import useAppThemeStore from '@/stores/useAppThemeStore';
-import ImageSlider from '@/components/ImageSlider.vue';
 import ImageSliderWithModal from '@/hocs/ImageSliderWithModal.vue';
 import LibraryList from '@/components/LibraryList.vue';
 import { getAllProjects } from '@/utils/api/projects-api';
