@@ -6,8 +6,7 @@
   "license": "All Rights Reserved",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build-onrender": "vue-cli-service build --mode production"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^3.8.3",
