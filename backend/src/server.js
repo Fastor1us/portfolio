@@ -1,7 +1,7 @@
 import express from 'express';
 import { projectRoutes } from './routes/projectsRoutes.js';
 import { imagesRouter } from './routes/imagesRouter.js';
-const URL = 'http://localhost:8080';
+const URL = process.env.URL || 'http://localhost:8080';
 
 const app = express();
 const PORT = process.env.PORT || 8081;
