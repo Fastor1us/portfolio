@@ -4,7 +4,7 @@ import { imagesRouter } from './routes/imagesRouter.js';
 const URL = 'http://localhost:8080';
 
 const app = express();
-const port = 8081;
+const PORT = process.env.PORT || 8081;
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', URL);
@@ -18,6 +18,6 @@ app.use(express.json());
 app.use('/projects', projectRoutes);
 app.use('/images', imagesRouter);
 
-app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
