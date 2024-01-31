@@ -4,14 +4,8 @@ import ImageSlider from '@/components/ImageSlider.vue';
 import Modal from '@/components/Modal.vue';
 
 defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-  path: {
-    type: String,
-    required: true,
-  },
+  data: { type: Object, required: true },
+  path: { type: String, required: true },
 });
 
 const showModal = ref(false);

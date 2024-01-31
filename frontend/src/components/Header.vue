@@ -30,7 +30,7 @@ header {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  margin: 30px 0 40px;
+  margin: 25px 0;
 }
 
 .nav a {

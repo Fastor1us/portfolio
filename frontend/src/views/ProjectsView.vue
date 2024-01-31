@@ -29,12 +29,17 @@ watchEffect(() => {
         :class="$theme.theme"
       >
         <div class="title">
-          <h2>{{ project.title }}</h2>
+          <h2>
+            <a :href="project.link" target="_blank" rel="noreferrer">
+              {{ project.title }}
+            </a>
+          </h2>
           <p>{{ project.created }}</p>
         </div>
 
         <ImageSliderWithModal
           :data="project.images"
+          F
           :path="project.title"
           class="images"
         />
@@ -92,16 +97,17 @@ watchEffect(() => {
   }
 }
 
+.li:last-of-type {
+  padding-bottom: 20px;
+  border-bottom: none;
+}
+
 .li.light {
   border-color: var(--active-text-light-theme);
 }
 
 .li.dark {
   border-color: var(--active-text-dark-theme);
-}
-
-.li:last-child {
-  border-bottom: none;
 }
 
 .content {
@@ -115,7 +121,7 @@ watchEffect(() => {
 }
 
 p {
-  text-indent: 12px;
+  text-indent: var(--text-indent);
   margin-bottom: 5px;
 }
 

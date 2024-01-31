@@ -3,8 +3,16 @@ import URL from '@/server_data';
 import useAppThemeStore from '@/stores/useAppThemeStore';
 const $theme = useAppThemeStore();
 const links = [
-  ['вконтакте', 'https://vk.com/id16543317'],
-  ['GitHub', 'https://github.com/Fastor1us'],
+  {
+    text: 'o-kir@ro.ru',
+    href: 'mailto:o-kir@ro.ru',
+    icon: 'email',
+  },
+  {
+    text: 'вконтакте',
+    href: 'https://vk.com/id16543317',
+    icon: 'vk',
+  },
 ];
 </script>
 
@@ -12,33 +20,15 @@ const links = [
   <section class="container">
     <img :src="URL + '/images/me.jpg'" alt="рабочее место" class="me" />
     <ul class="ul" :class="$theme.theme">
-      <li>
+      <li v-for="link in links" :key="link[0]">
         <div class="link">
           <img
-            :src="require(`@/assets/icons/email-${$theme.theme}.svg`)"
+            :src="require(`@/assets/icons/${link.icon}-${$theme.theme}.svg`)"
             alt="github"
             class="icon"
           />
-          <a href="mailto:fewgwer3@ya.ru" class="a" :class="$theme.theme">
-            fewgwer3@ya.ru
-          </a>
-        </div>
-      </li>
-      <li>
-        <div class="link">
-          <img
-            :src="require(`@/assets/icons/vk-${$theme.theme}.svg`)"
-            alt="github"
-            class="icon"
-          />
-          <a
-            href="https://vk.com/id16543317"
-            target="_blank"
-            rel="noreferrer"
-            class="a"
-            :class="$theme.theme"
-          >
-            вконтакте
+          <a :href="link.href" target="_blank" rel="noreferrer">
+            {{ link.text }}
           </a>
         </div>
       </li>
@@ -50,13 +40,7 @@ const links = [
         alt="github"
         class="icon"
       />
-      <a
-        href="https://github.com/Fastor1us"
-        target="_blank"
-        rel="noreferrer"
-        class="a"
-        :class="$theme.theme"
-      >
+      <a href="https://github.com/Fastor1us" target="_blank" rel="noreferrer">
         GitHub
       </a>
     </div>
@@ -80,6 +64,7 @@ const links = [
 .ul {
   border-top: 1px solid;
   padding-top: 15px;
+  transition: border-color var(--transition-time) ease;
 }
 
 .ul.dark {
@@ -99,18 +84,5 @@ const links = [
 .icon {
   width: 30px;
   height: 30px;
-}
-
-.a {
-  transition: color var(--transition-time) ease;
-  display: inline-block;
-}
-
-.a.dark {
-  color: var(--active-text-dark-theme);
-}
-
-.a.light {
-  color: var(--active-text-light-theme);
 }
 </style>

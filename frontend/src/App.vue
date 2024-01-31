@@ -34,6 +34,7 @@ watchEffect(() => {
   --app-padding: 20px;
   --max-app-width: 1200px;
   --max-main-width: 1080px;
+  --text-indent: 12px;
   --transition-time: 0.5s;
 }
 
@@ -41,12 +42,14 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -68,9 +71,22 @@ body.light {
   color: black;
 }
 
+a {
+  transition: color var(--transition-time) ease;
+}
+
+body.dark a {
+  color: var(--active-text-dark-theme);
+}
+
+body.light a {
+  color: var(--active-text-light-theme);
+}
+
 main {
   max-width: var(--max-main-width);
   width: 100%;
+  margin-bottom: 20px;
 }
 
 #app {
@@ -84,6 +100,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  min-height: 100%;
 }
 
 ul {

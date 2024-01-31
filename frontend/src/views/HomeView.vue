@@ -23,12 +23,12 @@ const videos = [
     'I Hate myself for loving you':
       'https://www.youtube.com/watch?v=vexbrLkSivo',
   },
-  { 'Всадник Из Льда': 'https://vk.com/video796268_456240150' },
+  // { 'Всадник Из Льда': 'https://vk.com/video796268_456240150' },
   { 'Господин горных дорог': 'https://vk.com/video796268_456240149' },
-  { 'Blood Bound': 'https://vk.com/video-167307197_456239023' },
-  { 'Prima Victoria': 'https://vk.com/video16543317_456239230' },
-  { 'I love Rock and Roll': 'https://vk.com/video97889238_456239419' },
-  { ['Ром']: 'https://vk.com/video-167307197_456239025' },
+  // { 'Blood Bound': 'https://vk.com/video-167307197_456239023' },
+  // { 'Prima Victoria': 'https://vk.com/video16543317_456239230' },
+  // { 'I love Rock and Roll': 'https://vk.com/video97889238_456239419' },
+  // { ['Ром']: 'https://vk.com/video-167307197_456239025' },
 ];
 const stack = [
   'GIT',
@@ -67,15 +67,14 @@ const stack = [
         class="slider gbu-slider"
       />
       <p class="gbu-description">
-        Впервые увлёкся программированием в 17 лет когда учился в лицее. Затем
-        поступил в МЭИ на бюджет на кафедру АВТИ. Институт не окончил, рано
-        пошел работать по специальности - разработчиком. Работал на фрилансе
-        около 4 лет.
+        В 17, учась в лицее, увлёкся программированием. Поступил на бюджет в
+        МЭИ, на кафедру АВТИ. Институт не окончил, рано пошел работать по
+        специальности
       </p>
       <p class="music-description">
-        В 23 года впервые "пощупал" электрогитару - начался новый виток -
-        увлечение музыкой. Собрал свою музыкальную кавер-группу, отыграл на
-        сцене довольно большой перечень песен.
+        В 23 года увлекся игрой на электрогитаре - начался новый виток моей
+        жизни. Собрал свою музыкальную кавер-группу, с которой играли на сцене в
+        пабах
       </p>
       <ImageSliderWithModal
         :data="images.music"
@@ -83,13 +82,31 @@ const stack = [
         class="slider music-slider"
       />
     </section>
-    <VideoList :data="videos" :title="'Видео выступлений:'" />
+    <VideoList class="video-list" :data="videos" :title="'Немного видео:'" />
     <p>
-      На прошлой работе сделал аудио-подложку
-      (https://disk.yandex.ru/d/N3LYOAiA720oyQ) под стихи в видео-поздравлении
-      на 8 марта
+      На прошлой работе сделал
+      <a
+        href="https://disk.yandex.ru/d/N3LYOAiA720oyQ"
+        target="_blank"
+        rel="noreferrer"
+      >
+        аудио-подложку</a
+      >
+      под стихи в видео-поздравлении на 8 марта
     </p>
-    <p>Затем начался ковид.</p>
+    <br />
+    <p>
+      Затем начался ковид. Не лучший период в моей жизни, я подсел на ММО... По
+      прошествию нескольких лет пришло осознание - так жить больше нельзя,
+      пришло время что-то менять
+    </p>
+    <br />
+    <p>Возвращение к истокам</p>
+    <p>
+      В 2023 году работал в ООО Платформа на должности инженер-программист.
+      Разрабатывал таблицы (аналог excel, только в браузере) по заказу Москвы,
+      занимался разработкой корпоративного софта
+    </p>
     <br />
     <h2>Рабочее место:</h2>
     <img
@@ -132,6 +149,7 @@ const stack = [
     'gbu-slider music-slider'
     'music-description music-slider';
   row-gap: 20px;
+  column-gap: 5px;
   @media (min-width: 500px) and (max-width: 768px) {
     grid-template-columns: max-content minmax(min-content, max-content);
     grid-template-areas:
@@ -140,6 +158,7 @@ const stack = [
       'gbu-slider music-description'
       'music-slider music-slider';
     row-gap: 15px;
+    column-gap: 0;
   }
   @media (max-width: 499) {
     grid-template-columns: max-content minmax(min-content, max-content);
@@ -149,6 +168,7 @@ const stack = [
       'gbu-slider music-description'
       'music-slider music-slider';
     row-gap: 15px;
+    column-gap: 2px;
   }
 }
 
@@ -162,7 +182,6 @@ const stack = [
   @media (max-width: 1279px) {
     margin: 0;
     grid-template-columns: 4fr 1fr;
-    padding-right: 10px;
   }
 }
 
@@ -188,7 +207,11 @@ const stack = [
   }
 }
 
+.video-list {
+  margin-left: var(--text-indent);
+}
+
 p {
-  text-indent: 12px;
+  text-indent: var(--text-indent);
 }
 </style>

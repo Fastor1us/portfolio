@@ -15,7 +15,10 @@ defineProps({
 
 <template>
   <section class="video-links">
-    Видео выступлений:
+    <span class="title">
+      {{ title }}
+      &nbsp;
+    </span>
     <ul class="ul">
       <template v-for="(video, index) in data" :key="Object.keys(video)[0]">
         <li class="li">
@@ -49,6 +52,9 @@ defineProps({
 
 .video-links {
   padding: 20px 0;
+
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .a {

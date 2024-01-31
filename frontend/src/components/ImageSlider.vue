@@ -1,28 +1,14 @@
 <script setup>
 import URL from '@/server_data';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import useAppThemeStore from '@/stores/useAppThemeStore';
+import { onBeforeUnmount } from 'vue';
 const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-  path: {
-    type: String,
-    required: true,
-  },
-  openModal: {
-    type: Function,
-    required: false,
-  },
-  modalActive: {
-    type: Boolean,
-    required: false,
-  },
-  imageIndex: {
-    type: Number,
-    required: false,
-  },
+  data: { type: Object, required: true },
+  path: { type: String, required: true },
+  openModal: { type: Function, required: false },
+  modalActive: { type: Boolean, required: false },
+  imageIndex: { type: Number, required: false },
 });
 const $theme = useAppThemeStore();
 const visibleImageIndex = ref(props.imageIndex || 0);
@@ -41,6 +27,27 @@ const swapImage = (index, length) => {
     visibleImageIndex.value = 0;
   }
 };
+watchEffect(() => {
+  const handleArrowKeyPress = (event) => {
+    if (event.key === 'ArrowLeft' && visibleImageIndex.value > 0) {
+      changeImage(-1);
+    }
+    if (
+      event.key === 'ArrowRight' &&
+      visibleImageIndex.value < props.data.length - 1
+    ) {
+      changeImage(1);
+    }
+  };
+  if (props.modalActive) {
+    window.addEventListener('keydown', handleArrowKeyPress);
+  } else {
+    window.removeEventListener('keydown', handleArrowKeyPress);
+  }
+  onBeforeUnmount(() => {
+    window.removeEventListener('keydown', handleArrowKeyPress);
+  });
+});
 </script>
 
 <template>

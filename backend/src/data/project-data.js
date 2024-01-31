@@ -1,37 +1,47 @@
 export const projects = [
   {
     title: 'game2cube',
+    link: 'https://game2cube.onrender.com',
     created: 'конец 2023',
     images: [
       'create-level.png',
-      'main-page.png',
-      'registration.png'
+      'game-logic.gif',
+      'search.gif',
+      'width.gif',
+      'registration.png',
     ],
     libraries: [
       'React', 'RTK Query', 'Express', 'PostgreSQL', 'Webpack'
     ],
     descriptions: [
-      `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
-      Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
-      corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`,
-      `Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur`,
-      `Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur`
+      `Клиент-серверное приложение - логическая игра.`,
+      `Сайт адаптирован на работу с разными разрешениями экрана, 
+      полная поддержка мобильных устройств (адаптив + резина).`,
+      `Реализована сложная игровая логика, защищённые маршруты, компоненты высшего порядка,
+      кастомные хуки, система авторизации, регистрации, лайков, загрузки и сохранения уровней в БД.`,
+      `Все части приложения написаны мной. Фронт (самописный вебпак конфиг - 
+      транспиляция, минификация, хотрелоад, работа с модулями CSS, шрифтами и т.д. и т.п.), 
+      сервер, работа с БД (процедуры, таблицы, настройка)`,
     ]
   },
   {
     title: 'portfolio',
+    link: 'https://portfolio-okir.onrender.com',
     created: 'начало 2024',
     images: [
-      'my-projects-dark-theme.png',
-      'my-projects-light-theme.png'
+      'title.png',
+      'theme-toggler.gif',
+      'width.gif',
     ],
     libraries: [
       'Vue3', 'Pinia', 'Express', 'Webpack'
     ],
     descriptions: [
-      `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, et. 
-      Libero, iusto voluptas quibusdam autem suscipit, atque soluta sunt ut laborum aspernatur
-      corrupti natus corporis repudiandae, fugit obcaecati? Quisquam, nemo!`
+      `Клиент-серверное приложение. Текст, который вы сейчас читаете, загружен с сервера.`,
+      `В этом проекте я использовал другой, отличный от первого проекта, стак технологий и библиотек.`,
+      `Сайт адаптирован на работу с разными разрешениями экрана, 
+      полная поддержка мобильных устройств (адаптив + резина).`,
+      `Все элементы приложения - кастомные компоненты (переключатель темы, слайдер картинок и т.д.)`,
     ]
   }
 ]
