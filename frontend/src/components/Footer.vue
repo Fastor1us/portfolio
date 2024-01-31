@@ -7,11 +7,7 @@ const $theme = useAppThemeStore();
 <template>
   <footer :class="$theme.theme">
     {{ new Date().getFullYear() }} ©&nbsp;
-    <a
-      href="https://portfolio-okir.onrender.com/contacts"
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a href="https://portfolio-okir.onrender.com/contacts">
       {{ packageJson.author }}
     </a>
   </footer>
