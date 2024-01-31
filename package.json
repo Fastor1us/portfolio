@@ -1,8 +1,8 @@
 {
   "title": "portfolio",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "pet-project",
-  "author": "Kiryushin Oleg <fewgwer3@ya.ru>",
+  "author": "Kiryushin Oleg <o-kir@ro.ru>",
   "license": "All Rights Reserved",
   "scripts": {
     "serve": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\"",
