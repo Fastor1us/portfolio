@@ -7,9 +7,15 @@ const EXTRA_EXTERNAL_URL = process.env.EXTRA_EXTERNAL_ACCESS_ORIGIN || null;
 const app = express();
 const PORT = process.env.PORT || 8081;
 
+const cors = {
+  origin: [CLIENT_URL, EXTRA_EXTERNAL_URL],
+  default: CLIENT_URL
+}
+
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin',
-    EXTRA_EXTERNAL_URL ? `${CLIENT_URL}, ${EXTRA_EXTERNAL_URL}` : CLIENT_URL);
+  res.header("Access-Control-Allow-Origin",
+    cors.origin.includes(req.headers.origin) ? req.headers.origin : cors.default
+  );
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
