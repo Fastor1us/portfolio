@@ -66,11 +66,13 @@ const stack = [
         path="gbu"
         class="slider gbu-slider"
       />
-      <p class="gbu-description">
-        В 17, учась в лицее, увлёкся программированием. Поступил на бюджет в
-        МЭИ, на кафедру АВТИ. Институт не окончил, рано пошел работать по
-        специальности
-      </p>
+      <div class="gbu-description">
+        <p>
+          В 17, учась в лицее, увлёкся программированием. Поступил на бюджет в
+          МЭИ, на кафедру АВТИ. Институт не окончил, рано пошел работать по
+          специальности
+        </p>
+      </div>
       <p class="music-description">
         В 23 года увлекся игрой на электрогитаре - начался новый виток моей
         жизни. Собрал свою музыкальную кавер-группу, с которой играли на сцене в
@@ -187,6 +189,9 @@ const stack = [
 
 .gbu-description {
   grid-area: gbu-description;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .music-slider {

@@ -1,13 +1,17 @@
 import express from 'express';
 import { projectRoutes } from './routes/projectsRoutes.js';
 import { imagesRouter } from './routes/imagesRouter.js';
-const URL = process.env.URL || 'http://localhost:8080';
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:8080';
+const EXTRA_EXT_URL = process.env.EXTRA_EXTERNAL_ACCESS_HEADERS || null;
 
 const app = express();
 const PORT = process.env.PORT || 8081;
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', URL);
+  res.setHeader('Access-Control-Allow-Origin', CLIENT_URL);
+  if (EXTRA_EXT_URL) {
+    res.setHeader('Access-Control-Allow-Headers', EXTRA_EXT_URL);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
