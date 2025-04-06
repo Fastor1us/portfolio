@@ -1,5 +1,9 @@
 {
-  "name": "eee",
+  "name": "frontend",
+  "title": "portfolio",
+  "description": "pet-project",
+  "author": "Kiryushin Oleg <o-kir@ro.ru>",
+  "lastEditDateYYYY": 2025,
   "private": true,
   "version": "0.0.0",
   "type": "module",
