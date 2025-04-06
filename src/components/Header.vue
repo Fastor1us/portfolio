@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>temp</div>
+  <h1>Header</h1>
 </template>
