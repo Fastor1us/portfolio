@@ -1,6 +1,22 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import useAppThemeStore from './stores/useAppThemeStore';
+import { onMounted, watchEffect } from 'vue';
+
+const $themeStore = useAppThemeStore();
+
+onMounted(() => {
+  setTimeout(() => {
+    document.body.classList.add('transition-enabled');
+  }, 0);
+});
+watchEffect(() => {
+  document.body.classList.add($themeStore.theme);
+  document.body.classList.remove(
+    $themeStore.theme === 'dark' ? 'light' : 'dark'
+  );
+});
 </script>
 
 <template>
