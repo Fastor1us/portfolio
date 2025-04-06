@@ -8,11 +8,7 @@ import VideoList from '../components/VideoList.vue';
 
 <template>
   <section class="home">
-    <img
-      :src="getAssetUrl('assets/images/me.jpg')"
-      alt="рабочее место"
-      class="me"
-    />
+    <img :src="getAssetUrl('images/me.jpg')" alt="рабочее место" class="me" />
     <h1>Привет!</h1>
     <h2 class="h2">Меня зовут Олег, я frontend-fullstack разработчик</h2>
     <br />
@@ -84,7 +80,7 @@ import VideoList from '../components/VideoList.vue';
     <br />
     <h2>Рабочее место:</h2>
     <img
-      :src="getAssetUrl('assets/images/workplace.jpg')"
+      :src="getAssetUrl('images/workplace.jpg')"
       alt="рабочее место"
       class="workplace"
     />

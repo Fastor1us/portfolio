@@ -20,18 +20,12 @@ const links = [
 
 <template>
   <section class="container">
-    <img
-      :src="getAssetUrl('assets/images/me.jpg')"
-      alt="Олег Кирюшин"
-      class="me"
-    />
+    <img :src="getAssetUrl('images/me.jpg')" alt="Олег Кирюшин" class="me" />
     <ul class="ul" :class="$themeStore.theme">
       <li v-for="link in links" :key="link.icon">
         <div class="link">
           <img
-            :src="
-              getAssetUrl(`assets/icons/${link.icon}-${$themeStore.theme}.svg`)
-            "
+            :src="getAssetUrl(`icons/${link.icon}-${$themeStore.theme}.svg`)"
             :alt="`${link.icon}` + '-icon'"
             class="icon"
           />
@@ -44,7 +38,7 @@ const links = [
     <p>Больше проектов:</p>
     <div class="link">
       <img
-        :src="getAssetUrl(`assets/icons/github-${$themeStore.theme}.svg`)"
+        :src="getAssetUrl(`icons/github-${$themeStore.theme}.svg`)"
         alt="github-icon"
         class="icon"
       />
