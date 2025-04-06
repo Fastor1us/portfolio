@@ -92,7 +92,7 @@ watchEffect(() => {
         </div>
         <img
           v-show="index === visibleImageIndex"
-          :src="getAssetUrl(`assets/images/${path}/${image}`)"
+          :src="getAssetUrl(`images/${path}/${image}`)"
           :alt="image.substring(0, image.indexOf('.'))"
           @click="
             openModal ? openModal(index) : swapImage(index, data.length - 1)
